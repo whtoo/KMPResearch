@@ -3,13 +3,13 @@ package com.blitz;
 import java.util.HashSet;
 import java.util.Set;
 
-public class KMPSearch {
+public class KMPSearch implements ITextSearch {
     private int[][] dfa;
     private char[] pattern;
     private int R;
 
     public KMPSearch(String pattern) {
-        this.pattern = pattern.toCharArray();
+        this.pattern = pattern.toLowerCase().toCharArray();
         this.R = 256;
         this.initDFA();
     }
@@ -44,7 +44,8 @@ public class KMPSearch {
         }
     }
 
-    public int match(String s) {
+    public int search(String s) {
+        s = s.toLowerCase();
         int i, j, N = s.length(), M = pattern.length;
         for (i = 0, j = 0; i < N && j < M; i++) {
             j = dfa[s.charAt(i)][j];
